@@ -9,7 +9,7 @@ class Journals {
   final IconData? icon;
 }
 
-List<Journals> journals = const [
+List<Journals> journals = [
   Journals('Бракеражный журнал', 'certPage'),
   // 'Журнал визуального производственного контроля санитарно-технического состояния и санитарного содержания помещений',
   // 'Журнал входного контроля пищевых продуктов, продовольственного сырья(бракеража продуктов и продовольственного сырья,поступающего на пищеблок)',
@@ -28,7 +28,7 @@ List<Journals> journals = const [
   // 'Журнал учета температурного режима холодильного оборудования',
 ];
 
-List<Journals> toolsList = const [
+List<Journals> toolsList = [
   Journals('Пользователи и пароли', 'usersPage'),
   Journals('Меню на сегодня', 'todaysMenu', icon: Icons.window),
   Journals('Создание и редактирование блюд', 'dishMenu'),

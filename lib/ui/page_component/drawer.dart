@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journal_app_v1/model/lists.dart';
 import 'package:journal_app_v1/model/provider.dart';
+import 'package:journal_app_v1/page/role_selection.dart';
 import 'package:journal_app_v1/ui/page_component/field_widget.dart';
 import 'package:journal_app_v1/ui/page_component/user_ui_card.dart';
 import 'package:journal_app_v1/ui/palette.dart';
@@ -89,6 +90,7 @@ class DrawerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    hideJournalForRole(GlobalRoleUiName);
     return Material(
       color: Colors.transparent,
       child: Theme(
@@ -131,4 +133,37 @@ void switchPage(BuildContext context, MainProvider provider, String link) {
   }
 
   Navigator.of(context).pushNamedAndRemoveUntil(link, (route) => false);
+}
+
+void hideJournalForRole(String role) {
+  if (role == 'Повар') {
+    journals.clear();
+    toolsList.clear();
+    journals.add(Journals('Бракеражный журнал', 'certPage'));
+    toolsList.add(Journals('Создание и редактирование блюд', 'dishMenu'));
+    toolsList.add(Journals('Меню на сегодня', 'todaysMenu', icon: Icons.window));
+  }
+  if (role == 'Кладовщик') {
+    journals.clear();
+    toolsList.clear();
+    journals.add(Journals('Журнал контроль температуры и влажности оборудования', 'tmprPage'));
+    toolsList.add(Journals('Список оборудования', 'appliancePage'));
+  }
+  if (role == 'Заведующий производством') {
+  journals.clear();
+  toolsList.clear();
+  journals.add(Journals('Журнал контроль температуры и влажности оборудования', 'tmprPage'));
+  journals.add(Journals('Бракеражный журнал', 'certPage'));
+  journals.add(Journals('Журнал Здоровья', 'healthPage'));
+  
+  }
+  if (role == 'Администратор') {
+      journals.clear();
+      toolsList.clear();
+  toolsList.add(Journals('Пользователи и пароли', 'usersPage'));
+  }
+  else 
+  {
+    return;
+  }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class RestAPI {
-  static const address = 'd18c-178-141-83-95.ngrok-free.app';
+  static const address = 'df89-178-141-83-95.ngrok-free.app';
 //  static const address =  'd0fa-8-41-37-217.ngrok.io';
 
   /// Generic request
