@@ -3,7 +3,7 @@ import 'package:journal_app_v1/method/username_selected.dart';
 import 'package:journal_app_v1/model/messages.dart';
 import 'package:journal_app_v1/model/models.dart';
 import 'package:journal_app_v1/model/provider.dart';
-import 'package:journal_app_v1/page/cert_page/component/cert_page_edit_mode.dart';
+import 'package:journal_app_v1/page/journals/cert_page/component/cert_page_edit_mode.dart';
 import 'package:journal_app_v1/ui/page_component/drawer.dart';
 import 'package:journal_app_v1/ui/page_component/error_loading_page.dart';
 import 'package:journal_app_v1/ui/page_component/table_default.dart';

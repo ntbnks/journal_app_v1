@@ -125,3 +125,32 @@ class Appliance {
   final int startNormalPoint;
   final int endNormalPoint;
 }
+
+class ImportControlEntry {
+  const ImportControlEntry({
+    required this.id,
+    required this.supplyOfFoodDate,
+    required this.nameOfProduct,
+    required this.manufactureOfProduct,
+    required this.supplierOfProduct,
+    required this.numberOfBatch,
+    required this.transportConditions,
+    required this.complianceOfRequirements,
+    required this.resultOfOrganolepticAssessment,
+    required this.expiryDate,
+    required this.actualSaleDate,
+    required this.note,
+  });
+  final int id;
+  final String supplyOfFoodDate;
+  final String nameOfProduct;
+  final String manufactureOfProduct;
+  final String supplierOfProduct;
+  final int numberOfBatch;
+  final String transportConditions;
+  final bool complianceOfRequirements;
+  final String resultOfOrganolepticAssessment;
+  final String expiryDate;
+  final String actualSaleDate;
+  final String note;
+}

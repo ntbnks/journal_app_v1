@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:journal_app_v1/model/messages.dart';
 import 'package:journal_app_v1/model/provider.dart';
-import 'package:journal_app_v1/page/temperature_page/component/tmpr_page_edit_mode.dart';
+import 'package:journal_app_v1/page/edit_mode_generic.dart';
+import 'package:journal_app_v1/page/journals/temperature_page/component/tmpr_page_edit_mode.dart';
 import 'package:journal_app_v1/ui/page_component/drawer.dart';
 import 'package:journal_app_v1/ui/page_component/error_loading_page.dart';
 import 'package:journal_app_v1/ui/page_component/table_default.dart';
@@ -50,7 +51,11 @@ class PageTemperature extends StatelessWidget {
                   /// CONTENT
                   ///
                   if (provider.editMode)
-                    TmprPageEditMode(provider)
+                    EditModeGeneric(
+                      provider,
+                      content: TmprPageEditModeContent(provider),
+                      onPost: provider.postTmpr,
+                    )
                   else
                     provider.errorMessage.isNotEmpty
                         ? ErrorLoadingPageWidget(

@@ -2,15 +2,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:journal_app_v1/method/date_time_handler.dart';
 import 'package:journal_app_v1/model/provider.dart';
-import 'package:journal_app_v1/page/cert_page/cert_page.dart';
-import 'package:journal_app_v1/page/health_page/component/health_page_edit_mode.dart';
-import 'package:journal_app_v1/page/temperature_page/tmpr_page.dart';
+import 'package:journal_app_v1/page/journals/cert_page/cert_page.dart';
+import 'package:journal_app_v1/page/journals/health_page/component/health_page_edit_mode.dart';
+import 'package:journal_app_v1/page/journals/temperature_page/tmpr_page.dart';
 import 'package:journal_app_v1/page/users_page.dart';
 import 'package:journal_app_v1/ui/role_selection_button.dart';
 import 'package:provider/provider.dart';
-import 'health_page/health_page.dart';
+import 'journals/health_page/health_page.dart';
 
-int curInt = Random().nextInt(4)+1;
+int curInt = Random().nextInt(4) + 1;
 
 class RoleSelectionPage extends StatefulWidget {
   const RoleSelectionPage({super.key});
@@ -143,8 +143,11 @@ class _RoleSelectionPageState extends State<RoleSelectionPage> {
     );
   }
 }
+
 enum UserRole { admin, manager, cook, washer, cashier, keeper, accountant }
-String GlobalRoleUiName  = "NaN";
+
+String GlobalRoleUiName = "NaN";
+
 class UserRoleValues {
   UserRoleValues({this.uiName = 'role', this.uiIcon = Icons.abc, this.route = ''});
   final String uiName;
@@ -153,49 +156,49 @@ class UserRoleValues {
   factory UserRoleValues.getRoleValues(UserRole role) {
     switch (role) {
       case UserRole.manager:
-      GlobalRoleUiName = 'Заведующий производством';
+        GlobalRoleUiName = 'Заведующий производством';
         return UserRoleValues(
           uiName: 'Заведующий производством',
           uiIcon: Icons.food_bank,
           route: PageHealth.route,
         );
       case UserRole.cook:
-       GlobalRoleUiName = 'Повар';
+        GlobalRoleUiName = 'Повар';
         return UserRoleValues(
           uiName: 'Повар',
           uiIcon: Icons.restaurant_menu,
           route: PageFoodCertification.route,
         );
       case UserRole.washer:
-       GlobalRoleUiName = 'Мойщик';
+        GlobalRoleUiName = 'Мойщик';
         return UserRoleValues(
           uiName: 'Мойщик',
           uiIcon: Icons.clean_hands,
           route: PageFoodCertification.route,
         );
       case UserRole.cashier:
-       GlobalRoleUiName = 'Продавец';
+        GlobalRoleUiName = 'Продавец';
         return UserRoleValues(
           uiName: 'Продавец',
           uiIcon: Icons.attach_money,
           route: PageFoodCertification.route,
         );
       case UserRole.keeper:
-       GlobalRoleUiName = 'Кладовщик';
+        GlobalRoleUiName = 'Кладовщик';
         return UserRoleValues(
           uiName: 'Кладовщик',
           uiIcon: Icons.warehouse,
           route: PageTemperature.route,
         );
       case UserRole.accountant:
-       GlobalRoleUiName = 'Калькулятор';
+        GlobalRoleUiName = 'Калькулятор';
         return UserRoleValues(
           uiName: 'Калькулятор',
           uiIcon: Icons.calculate,
           route: PageFoodCertification.route,
         );
       default:
-       GlobalRoleUiName = 'Администратор';
+        GlobalRoleUiName = 'Администратор';
         return UserRoleValues(
           uiName: 'Администратор',
           uiIcon: Icons.manage_accounts,

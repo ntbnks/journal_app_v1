@@ -25,6 +25,8 @@ class MainProvider extends ChangeNotifier {
   List<ProfessionEntry> professionList = [];
   List<Appliance> applianceList = [];
 
+  List<ImportControlEntry> importControlList = [];
+
   /// CURRENT USER INFO
   int currentUser = -1;
   String currentUserName = '';
@@ -54,11 +56,41 @@ class MainProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setLoading(bool value) {
+    loading = value;
+    notifyListeners();
+  }
+
+  /// GENERIC FETCH REQUEST HERE
+  void delegateFetchTask(String destination, Function(dynamic value) onSuccess,
+      {bool noRefresh = false}) {
+    if (!noRefresh) {
+      setLoading(true);
+    }
+    errorMessage = '';
+    String responseValue = '';
+    RestAPI()
+        .fetch(destination)
+        // Success case
+        .then((value) {
+      responseValue = value.toString();
+      onSuccess(value);
+    })
+        // Failure case
+        .catchError((error) {
+      errorMessage = error.toString();
+      responseValue = error.toString();
+    })
+        // When finished
+        .whenComplete(() {
+      print(responseValue);
+      setLoading(false);
+    });
+  }
+
   /// REQUESTS START HERE
   void requestUserList() {
-    loading = true;
-    notifyListeners();
-    RestAPI().fetch('usersGet').then((value) {
+    delegateFetchTask('usersGet', (value) {
       userList.clear();
       for (final e in value) {
         userList.add(
@@ -73,11 +105,6 @@ class MainProvider extends ChangeNotifier {
           ),
         );
       }
-    }).catchError((error) {
-      errorMessage = error.toString();
-    }).whenComplete(() {
-      loading = false;
-      notifyListeners();
     });
   }
 
@@ -85,9 +112,7 @@ class MainProvider extends ChangeNotifier {
     loading = true;
     notifyListeners();
     return RestAPI().fetch('brackGet').then((value) {
-      errorMessage = '';
       certList.clear();
-      print(value);
       for (final e in value) {
         certList.add(
           JournalFoodCert(
@@ -112,13 +137,8 @@ class MainProvider extends ChangeNotifier {
   }
 
   void requestHealthList() {
-    loading = true;
-    notifyListeners();
-    RestAPI().fetch('healthget').then((value) {
-      errorMessage = '';
+    delegateFetchTask('healthget', (value) {
       healthList.clear();
-      print(value);
-
       for (final e in value) {
         healthList.add(
           JournalHealth(
@@ -135,22 +155,12 @@ class MainProvider extends ChangeNotifier {
           ),
         );
       }
-    }).catchError((error) {
-      errorMessage = error.toString();
-    }).whenComplete(() {
-      loading = false;
-      notifyListeners();
     });
   }
 
   void requestTmprList() {
-    loading = true;
-    notifyListeners();
-    RestAPI().fetch('tempControlGet').then((value) {
-      errorMessage = '';
+    delegateFetchTask('tempControlGet', (value) {
       tmprList.clear();
-      print(value);
-
       for (final e in value) {
         tmprList.add(
           JournalTemperature(
@@ -168,22 +178,12 @@ class MainProvider extends ChangeNotifier {
           ),
         );
       }
-    }).catchError((error) {
-      errorMessage = error.toString();
-    }).whenComplete(() {
-      loading = false;
-      notifyListeners();
     });
   }
 
   void requestDishList() {
-    loading = true;
-    notifyListeners();
-    RestAPI().fetch('dishesGet').then((value) {
-      errorMessage = '';
+    delegateFetchTask('dishesGet', (value) {
       dishList.clear();
-      print(value);
-
       for (final e in value) {
         dishList.add(
           DishEntry(
@@ -196,11 +196,30 @@ class MainProvider extends ChangeNotifier {
           ),
         );
       }
-    }).catchError((error) {
-      errorMessage = error.toString();
-    }).whenComplete(() {
-      loading = false;
-      notifyListeners();
+    });
+  }
+
+  void requestImportControlData() {
+    delegateFetchTask('enterControlOfFoodGet', (value) {
+      importControlList.clear();
+      for (final e in value) {
+        importControlList.add(
+          ImportControlEntry(
+            id: e['id'] as int,
+            supplyOfFoodDate: e['supplyOfFoodDate'] as String,
+            nameOfProduct: e['nameOfProduct'] as String,
+            manufactureOfProduct: e['manufactureOfProduct'] as String,
+            supplierOfProduct: e['supplierOfProduct'] as String,
+            numberOfBatch: e['numberOfBatch'] as int,
+            transportConditions: e['transportConditions'] as String,
+            complianceOfRequirements: e['complianceOfRequirements'] as bool,
+            resultOfOrganolepticAssessment: e['resultOfOrganolepticAssessment'] as String,
+            expiryDate: e['expiryDate'] as String,
+            actualSaleDate: e['actualSaleDate'] as String,
+            note: e['note'] as String,
+          ),
+        );
+      }
     });
   }
 
@@ -213,11 +232,7 @@ class MainProvider extends ChangeNotifier {
     required int userID,
     required int supervisorID,
   }) {
-    loading = true;
-    errorMessage = '';
-    problems = 'Добавление записи...';
-    notifyListeners();
-
+    initiatePostEntry();
     RestAPI()
         .addBrack(
           name: name,
@@ -242,10 +257,7 @@ class MainProvider extends ChangeNotifier {
     required int prof,
     required String diagnosis,
   }) {
-    loading = true;
-    errorMessage = '';
-    problems = 'Добавление записи...';
-    notifyListeners();
+    initiatePostEntry();
 
     RestAPI()
         .addHealth(
@@ -265,32 +277,44 @@ class MainProvider extends ChangeNotifier {
         .catchError((error) => catchErrorHandler(error));
   }
 
-  /// Post in temperature control
-  void postTmpr({
-    required String warehouse,
-    required int temperature,
-    required int vlazhn,
-    required bool signature,
-  }) {
-    loading = true;
+  bool validateBeforePost(bool condition) {
+    if (condition) {
+      problemsList('Одно из полей не заполнено!');
+      return false;
+    }
+    return true;
+  }
+
+  void initiatePostEntry() {
     errorMessage = '';
     problems = 'Добавление записи...';
-    notifyListeners();
+    setLoading(true);
+  }
 
-    RestAPI()
-        .addTemperatureControl(
-          warehouse: warehouse,
-          temperature: temperature,
-          vlazhn: vlazhn,
-          signature: signature,
-        )
-        .then(
-          (value) => postErrorHandler(
-            value,
-            onSuccess: [toggleEdit, requestTmprList],
-          ),
-        )
-        .catchError((error) => catchErrorHandler(error));
+  /// Post in temperature control
+  void postTmpr() {
+    if (validateBeforePost(
+      formTmpr.appliance.isEmpty ||
+          formTmpr.vlazhn < 0 ||
+          formTmpr.temperature < 0 ||
+          !formTmpr.sign,
+    )) {
+      initiatePostEntry();
+      RestAPI()
+          .addTemperatureControl(
+            warehouse: formTmpr.warehouse,
+            temperature: formTmpr.temperature,
+            vlazhn: formTmpr.vlazhn,
+            signature: formTmpr.sign,
+          )
+          .then(
+            (value) => postErrorHandler(
+              value,
+              onSuccess: [toggleEdit, requestTmprList],
+            ),
+          )
+          .catchError((error) => catchErrorHandler(error));
+    }
   }
 
   /// Handlers

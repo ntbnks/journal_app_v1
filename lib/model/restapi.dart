@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class RestAPI {
-  static const address = 'df89-178-141-83-95.ngrok-free.app';
+  static const address = 'ad71-193-168-46-11.ngrok-free.app';
 //  static const address =  'd0fa-8-41-37-217.ngrok.io';
 
   /// Generic request
@@ -117,6 +117,7 @@ class RestAPI {
     required String warehouse,
     required bool signature,
   }) async {
+    print('started addTemperatureControl');
     final response = await http.post(
       Uri.http(address, 'tempControlPost'),
       body: jsonEncode({
@@ -128,6 +129,8 @@ class RestAPI {
       }),
     );
 
+    print(response);
+    print(response.statusCode);
     return utfResponse(response);
   }
 

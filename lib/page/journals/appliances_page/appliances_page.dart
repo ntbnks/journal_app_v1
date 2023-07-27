@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:journal_app_v1/model/messages.dart';
 import 'package:journal_app_v1/model/provider.dart';
 import 'package:journal_app_v1/ui/page_component/drawer.dart';
 import 'package:journal_app_v1/ui/page_component/edit_mode_post_and_cancel_widgets.dart';

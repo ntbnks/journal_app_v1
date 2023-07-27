@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal_app_v1/model/provider.dart';
-import 'package:journal_app_v1/page/cert_page/cert_page.dart';
+import 'package:journal_app_v1/page/journals/cert_page/cert_page.dart';
 import 'package:journal_app_v1/page/todays_menu_page/component/dialog_get_dishes.dart';
 import 'package:journal_app_v1/ui/big_button_widget.dart';
 import 'package:journal_app_v1/ui/page_component/buttons_sized.dart';

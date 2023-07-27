@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journal_app_v1/model/messages.dart';
 import 'package:journal_app_v1/model/provider.dart';
-import 'package:journal_app_v1/page/dish_menu/component/dish_menu_add.dart';
+import 'package:journal_app_v1/page/journals/dish_menu/component/dish_menu_add.dart';
 import 'package:journal_app_v1/ui/page_component/drawer.dart';
 import 'package:journal_app_v1/ui/page_component/error_loading_page.dart';
 import 'package:journal_app_v1/ui/page_component/table_default.dart';

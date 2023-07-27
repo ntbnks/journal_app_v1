@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:journal_app_v1/model/provider.dart';
-import 'package:journal_app_v1/page/appliances_page/appliances_page.dart';
-import 'package:journal_app_v1/page/cert_page/cert_page.dart';
-import 'package:journal_app_v1/page/dish_menu/dish_menu_page.dart';
-import 'package:journal_app_v1/page/health_page/health_page.dart';
+import 'package:journal_app_v1/page/journals/appliances_page/appliances_page.dart';
+import 'package:journal_app_v1/page/journals/cert_page/cert_page.dart';
+import 'package:journal_app_v1/page/journals/dish_menu/dish_menu_page.dart';
+import 'package:journal_app_v1/page/journals/health_page/health_page.dart';
 import 'package:journal_app_v1/page/home_page.dart';
+import 'package:journal_app_v1/page/journals/import_control_page.dart';
 import 'package:journal_app_v1/page/login_page.dart';
 import 'package:journal_app_v1/page/role_selection.dart';
-import 'package:journal_app_v1/page/temperature_page/tmpr_page.dart';
+import 'package:journal_app_v1/page/journals/temperature_page/tmpr_page.dart';
 import 'package:journal_app_v1/page/todays_menu_page/todays_menu_page.dart';
 import 'package:journal_app_v1/page/users_page.dart';
 import 'package:journal_app_v1/ui/palette.dart';
@@ -83,6 +84,7 @@ Map<String, WidgetBuilder> routes = {
   DishMenuPage.route: (_) => const DishMenuPage(),
   TodaysMenuPage.route: (_) => const TodaysMenuPage(),
   AppliancesPage.route: (_) => const AppliancesPage(),
+  ImportControlJournalPage.route: (_) => const ImportControlJournalPage()
 };
 
 class NoTransitionsBuilder extends PageTransitionsBuilder {
@@ -99,4 +101,8 @@ class NoTransitionsBuilder extends PageTransitionsBuilder {
     // only return the child without warping it with animations
     return child!;
   }
+}
+
+class JournalPageArguments {
+// Jour
 }

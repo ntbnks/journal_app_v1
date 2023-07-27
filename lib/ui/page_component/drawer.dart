@@ -140,6 +140,7 @@ void hideJournalForRole(String role) {
     journals.clear();
     toolsList.clear();
     journals.add(Journals('Бракеражный журнал', 'certPage'));
+    journals.add(Journals('Журнал входного контроля пищевых продуктов', 'importControlPage'));
     toolsList.add(Journals('Создание и редактирование блюд', 'dishMenu'));
     toolsList.add(Journals('Меню на сегодня', 'todaysMenu', icon: Icons.window));
   }
@@ -150,20 +151,17 @@ void hideJournalForRole(String role) {
     toolsList.add(Journals('Список оборудования', 'appliancePage'));
   }
   if (role == 'Заведующий производством') {
-  journals.clear();
-  toolsList.clear();
-  journals.add(Journals('Журнал контроль температуры и влажности оборудования', 'tmprPage'));
-  journals.add(Journals('Бракеражный журнал', 'certPage'));
-  journals.add(Journals('Журнал Здоровья', 'healthPage'));
-  
+    journals.clear();
+    toolsList.clear();
+    journals.add(Journals('Журнал контроль температуры и влажности оборудования', 'tmprPage'));
+    journals.add(Journals('Бракеражный журнал', 'certPage'));
+    journals.add(Journals('Журнал Здоровья', 'healthPage'));
   }
   if (role == 'Администратор') {
-      journals.clear();
-      toolsList.clear();
-  toolsList.add(Journals('Пользователи и пароли', 'usersPage'));
-  }
-  else 
-  {
+    journals.clear();
+    toolsList.clear();
+    toolsList.add(Journals('Пользователи и пароли', 'usersPage'));
+  } else {
     return;
   }
 }
