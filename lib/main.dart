@@ -6,6 +6,8 @@ import 'package:journal_app_v1/page/journals/dish_menu/dish_menu_page.dart';
 import 'package:journal_app_v1/page/journals/health_page/health_page.dart';
 import 'package:journal_app_v1/page/home_page.dart';
 import 'package:journal_app_v1/page/journals/import_control_page.dart';
+import 'package:journal_app_v1/page/journals/medical_examination_page.dart';
+import 'package:journal_app_v1/page/journals/perishable_food_page.dart';
 import 'package:journal_app_v1/page/login_page.dart';
 import 'package:journal_app_v1/page/role_selection.dart';
 import 'package:journal_app_v1/page/journals/temperature_page/tmpr_page.dart';
@@ -84,7 +86,9 @@ Map<String, WidgetBuilder> routes = {
   DishMenuPage.route: (_) => const DishMenuPage(),
   TodaysMenuPage.route: (_) => const TodaysMenuPage(),
   AppliancesPage.route: (_) => const AppliancesPage(),
-  ImportControlJournalPage.route: (_) => const ImportControlJournalPage()
+  ImportControlJournalPage.route: (_) => const ImportControlJournalPage(),
+  PerishableFoodJournalPage.route: (_) => const PerishableFoodJournalPage(),
+  MedExaminationJournalPage.route: (_) => const MedExaminationJournalPage(),
 };
 
 class NoTransitionsBuilder extends PageTransitionsBuilder {

@@ -167,7 +167,7 @@ class PopupMenuAppliance extends StatelessWidget {
   });
   final String title;
   final List<Appliance> entries;
-  final String selectedValue;
+  final String? selectedValue;
   final Function(Appliance) onTap;
   @override
   Widget build(BuildContext context) => Column(
@@ -188,7 +188,7 @@ class PopupMenuAppliance extends StatelessWidget {
                         const Icon(Icons.expand_circle_down_outlined),
                         const SizedBox(width: 8),
                         Text(
-                          selectedValue == '' ? 'Открыть список оборудования' : selectedValue,
+                          selectedValue ?? 'Открыть список оборудования',
                         )
                       ],
                     ),

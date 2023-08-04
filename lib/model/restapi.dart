@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class RestAPI {
-  static const address = 'ad71-193-168-46-11.ngrok-free.app';
+  static const address = '7f83-193-168-46-11.ngrok-free.app';
 //  static const address =  'd0fa-8-41-37-217.ngrok.io';
 
   /// Generic request
@@ -18,6 +18,7 @@ class RestAPI {
     final HttpClientResponse response = await request.close();
     final stringData = await response.transform(utf8.decoder).join();
     final decoded = jsonDecode(stringData);
+    print(stringData);
 
     try {
       return decoded as List<dynamic>;
@@ -116,16 +117,18 @@ class RestAPI {
     required int vlazhn,
     required String warehouse,
     required bool signature,
+    required int applianceId,
   }) async {
     print('started addTemperatureControl');
     final response = await http.post(
       Uri.http(address, 'tempControlPost'),
       body: jsonEncode({
-        "warehouse": warehouse,
+        // "warehouse": warehouse,
         "temperature": temperature,
         "vlazhn": vlazhn,
         "user": 1,
-        "sign": signature
+        "sign": signature,
+        "appliance": applianceId,
       }),
     );
 

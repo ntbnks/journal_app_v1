@@ -141,6 +141,10 @@ void hideJournalForRole(String role) {
     toolsList.clear();
     journals.add(Journals('Бракеражный журнал', 'certPage'));
     journals.add(Journals('Журнал входного контроля пищевых продуктов', 'importControlPage'));
+    journals.add(Journals('Журнал скоропортящихся продуктов', 'PerishableFoodJournalPage'));
+    journals.add(
+      Journals('Журнал выдачи направлений на медицинский осмотр', 'MedExaminationJournalPage'),
+    );
     toolsList.add(Journals('Создание и редактирование блюд', 'dishMenu'));
     toolsList.add(Journals('Меню на сегодня', 'todaysMenu', icon: Icons.window));
   }

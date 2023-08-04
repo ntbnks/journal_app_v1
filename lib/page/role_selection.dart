@@ -1,9 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:journal_app_v1/method/date_time_handler.dart';
 import 'package:journal_app_v1/model/provider.dart';
 import 'package:journal_app_v1/page/journals/cert_page/cert_page.dart';
-import 'package:journal_app_v1/page/journals/health_page/component/health_page_edit_mode.dart';
 import 'package:journal_app_v1/page/journals/temperature_page/tmpr_page.dart';
 import 'package:journal_app_v1/page/users_page.dart';
 import 'package:journal_app_v1/ui/role_selection_button.dart';

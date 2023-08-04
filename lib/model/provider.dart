@@ -26,6 +26,8 @@ class MainProvider extends ChangeNotifier {
   List<Appliance> applianceList = [];
 
   List<ImportControlEntry> importControlList = [];
+  List<PerishableFoodEntry> perishableFoodList = [];
+  List<MedExamEntry> medExamList = [];
 
   /// CURRENT USER INFO
   int currentUser = -1;
@@ -101,7 +103,7 @@ class MainProvider extends ChangeNotifier {
             otch: e['otch'] as String,
             role: e['role'] as String,
             banned: e['banned'] as bool,
-            deleted: e['deleted'] as bool,
+            // deleted: e['deleted'] as bool,
           ),
         );
       }
@@ -162,6 +164,19 @@ class MainProvider extends ChangeNotifier {
     delegateFetchTask('tempControlGet', (value) {
       tmprList.clear();
       for (final e in value) {
+        Appliance? appliance;
+        if (e['appliance'] != null) {
+          final x = e['appliance'] as Map<String, dynamic>;
+
+          appliance = Appliance(
+            id: x['id'] as int,
+            name: x['name'] as String,
+            normalPoint: x['normalPoint'] as String,
+            startNormalPoint: x['startNormalPoint'] as int,
+            endNormalPoint: x['endNormalPoint'] as int,
+          );
+        }
+
         tmprList.add(
           JournalTemperature(
             id: (e as Map)['id'] as int,
@@ -173,7 +188,7 @@ class MainProvider extends ChangeNotifier {
             vlazhn: e['vlazhn'] as int,
             warehouse: '0',
             // warehouse: e['warehouse'] as String,
-            appliance: 'Lamp 1 Test',
+            appliance: appliance,
             sign: e['sign'] as bool,
           ),
         );
@@ -217,6 +232,41 @@ class MainProvider extends ChangeNotifier {
             expiryDate: e['expiryDate'] as String,
             actualSaleDate: e['actualSaleDate'] as String,
             note: e['note'] as String,
+          ),
+        );
+      }
+    });
+  }
+
+  void requestPerishableFoodData() {
+    delegateFetchTask('perishableFoodGet', (value) {
+      perishableFoodList.clear();
+      for (final e in value) {
+        perishableFoodList.add(
+          PerishableFoodEntry(
+            id: e['id'] as int,
+            name: e['name'] as String,
+            openingDate: e['openingDate'] as String,
+            manufactureDateTime: e['manufactureDateTime'] as String,
+            expiryDate: e['expiryDate'] as String,
+            periodOfSaleDate: e['periodOfSaleDate'] as String,
+            userLink: (e['user'] as Map)['id'] as int,
+          ),
+        );
+      }
+    });
+  }
+
+  void requestMedExamData() {
+    delegateFetchTask('medicalExaminationGet', (value) {
+      perishableFoodList.clear();
+      for (final e in value) {
+        medExamList.add(
+          MedExamEntry(
+            id: e['id'] as int,
+            referralDate: e['referralDate'] as String,
+            userId: (e['user'] as Map)['id'] as int,
+            doneById: (e['user_done'] as Map)['id'] as int,
           ),
         );
       }
@@ -294,7 +344,7 @@ class MainProvider extends ChangeNotifier {
   /// Post in temperature control
   void postTmpr() {
     if (validateBeforePost(
-      formTmpr.appliance.isEmpty ||
+      formTmpr.appliance == null ||
           formTmpr.vlazhn < 0 ||
           formTmpr.temperature < 0 ||
           !formTmpr.sign,
@@ -306,6 +356,7 @@ class MainProvider extends ChangeNotifier {
             temperature: formTmpr.temperature,
             vlazhn: formTmpr.vlazhn,
             signature: formTmpr.sign,
+            applianceId: formTmpr.appliance!.id,
           )
           .then(
             (value) => postErrorHandler(
@@ -517,7 +568,7 @@ class MainProvider extends ChangeNotifier {
     temperature: -1,
     vlazhn: -1,
     warehouse: '',
-    appliance: '',
+    appliance: null,
     sign: false,
   );
 
@@ -528,7 +579,7 @@ class MainProvider extends ChangeNotifier {
     int? temperature,
     int? vlazhn,
     String? warehouse,
-    String? appliance,
+    Appliance? appliance,
     bool? signWorker,
   }) {
     formTmpr.user = user ?? formTmpr.user;
@@ -537,7 +588,7 @@ class MainProvider extends ChangeNotifier {
     formTmpr.temperature = temperature ?? formTmpr.temperature;
     formTmpr.vlazhn = vlazhn ?? formTmpr.vlazhn;
     formTmpr.warehouse = warehouse ?? formTmpr.warehouse;
-    formTmpr.appliance = appliance ?? formTmpr.appliance;
+    formTmpr.appliance = appliance;
     formTmpr.sign = signWorker ?? formTmpr.sign;
 
     notifyListeners();

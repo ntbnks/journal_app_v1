@@ -6,7 +6,7 @@ class User {
     required this.otch,
     required this.role,
     required this.banned,
-    required this.deleted,
+    // required this.deleted,
   });
 
   int id;
@@ -15,7 +15,7 @@ class User {
   String otch;
   String role;
   bool banned;
-  bool deleted;
+  // bool deleted;
 }
 
 class JournalFoodCert {
@@ -74,7 +74,7 @@ class JournalTemperature {
     required this.temperature,
     required this.vlazhn,
     required this.warehouse,
-    required this.appliance,
+    this.appliance,
     required this.sign,
   });
   int id;
@@ -85,7 +85,7 @@ class JournalTemperature {
   int temperature;
   int vlazhn;
   String warehouse;
-  String appliance;
+  Appliance? appliance;
   bool sign;
 }
 
@@ -153,4 +153,36 @@ class ImportControlEntry {
   final String expiryDate;
   final String actualSaleDate;
   final String note;
+}
+
+class PerishableFoodEntry {
+  const PerishableFoodEntry({
+    required this.id,
+    required this.name,
+    required this.openingDate,
+    required this.manufactureDateTime,
+    required this.expiryDate,
+    required this.periodOfSaleDate,
+    required this.userLink,
+  });
+  final int id;
+  final String name;
+  final String openingDate;
+  final String manufactureDateTime;
+  final String expiryDate;
+  final String periodOfSaleDate;
+  final int userLink;
+}
+
+class MedExamEntry {
+  const MedExamEntry({
+    required this.id,
+    required this.referralDate,
+    required this.userId,
+    required this.doneById,
+  });
+  final int id;
+  final String referralDate;
+  final int userId;
+  final int doneById;
 }

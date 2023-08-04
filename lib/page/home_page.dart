@@ -83,7 +83,7 @@ void fetchUserInfo(BuildContext context, MainProvider provider) {
             role: 'role',
 
             banned: e['banned'] as bool,
-            deleted: e['deleted'] as bool,
+            // deleted: e['deletedColonum'] as bool,
           ),
         );
       }

@@ -20,14 +20,17 @@ class EditModeGeneric extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Form(
-            child: Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 64.0, vertical: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [const TextHeadline('Добавить новую запись'), content],
+          Expanded(
+            child: SizedBox(
+              width: double.infinity,
+              child: Form(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 64.0, vertical: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [const TextHeadline('Добавить новую запись'), content],
+                    ),
                   ),
                 ),
               ),

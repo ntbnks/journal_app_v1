@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:journal_app_v1/method/username_selected.dart';
 import 'package:journal_app_v1/model/provider.dart';
 import 'package:journal_app_v1/ui/page_component/checkbox_default.dart';
 import 'package:journal_app_v1/ui/popup_menu_premade.dart';
@@ -18,9 +19,9 @@ class TmprPageEditModeContent extends StatelessWidget {
           children: [
             PopupMenuAppliance(
               title: 'Укажите оборудование',
-              onTap: (e) => provider.editTemperatureJournal(appliance: e.name),
+              onTap: (e) => provider.editTemperatureJournal(appliance: e),
               entries: provider.applianceList,
-              selectedValue: provider.formTmpr.appliance,
+              selectedValue: provider.formTmpr.appliance?.name,
             )
           ],
         ),
@@ -44,7 +45,8 @@ class TmprPageEditModeContent extends StatelessWidget {
         ),
         CheckboxDefault(
           provider.formTmpr.sign,
-          title: 'Внесенные данные подтверждаю - Капусткин Иван Петрович',
+          title:
+              'Внесенные данные подтверждаю - ${genUserFirstnameSecondnameLastname(provider.userList[provider.currentUser])}',
           onChanged: (value) => provider.editTemperatureJournal(signWorker: value),
         ),
       ],

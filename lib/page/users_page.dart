@@ -42,15 +42,15 @@ class UsersPage extends StatelessWidget {
                           1: FlexColumnWidth(8),
                           2: FlexColumnWidth(2),
                           3: FlexColumnWidth(2),
-                          4: FlexColumnWidth(2),
-                          5: FlexColumnWidth(4),
+                          4: FlexColumnWidth(4),
+                          // 5: FlexColumnWidth(4),
                         },
                         headers: const [
                           'id',
                           'ФИО',
                           'Роль',
                           'Ограничен',
-                          'Удален',
+                          // 'Удален',
                           'Запрос на восстановление пароля',
                         ],
                         content: [
@@ -61,7 +61,7 @@ class UsersPage extends StatelessWidget {
                                 TextInTable(genUserFirstnameSecondnameLastname(e)),
                                 TextInTable(e.role),
                                 TextInTable(Messages().genBoolString(e.banned)),
-                                TextInTable(Messages().genBoolString(e.deleted)),
+                                // TextInTable(Messages().genBoolString(e.deleted)),
                                 UnconstrainedBox(
                                   child: SizedBox(
                                     width: 60,
